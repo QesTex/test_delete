@@ -1,65 +1,69 @@
-<!DOCTYPE HTML>
-<html>
-
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-<title> Лабораторная работа HTML</title>
+    <meta charset="UTF-8">
+    <title>Игра в кости</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #f0f0f0; }
+        .dice-container { display: flex; justify-content: center; gap: 20px; margin-top: 50px; }
+        .die {
+            width: 100px; height: 100px;
+            background: white; border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; font-weight: bold; border: 2px solid #333;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        button {
+            margin-top: 30px; padding: 10px 25px;
+            font-size: 1.2rem; cursor: pointer;
+            background: #28a745; color: white; border: none; border-radius: 5px;
+        }
+        button:hover { background: #218838; }
+        #result { margin-top: 20px; font-size: 1.5rem; font-weight: bold; color: #333; }
+    </style>
 </head>
-
 <body>
-<center>
-<h1><a href="https://rsreu.ru/" target="_blank">РГРТУ</a></h1>
-<h2><a href="https://rsreu.ru/faculties/fvt/kafedri/vpm" target="_blank">Кафедра ВПМ</a></h2>
-<h3>Лабораторная работа №2</h3>
-<h4 style="color:Grey">"Форматирование текста в HTML"</h4>
-</center>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<p align=right>
-<b>Выполнил:</b> студент группы 515 <a href="https://vk.com/qestex" target="_blank">Казарян Р.Г.</a>
-</p>
-<p align=right>
-<b>Проверил: </b>доцент кафедры ВПМ Жулева С.Ю;
-<br>ассистент кафедры ВПМ Бурмистров А.С.
-</p>
-<br></br>
-<br></br>
-<center><p>Рязань 2025</p></center>
-<hr>
-<p><b>Задание:</b></p>
-<p><i><font face="Arial">Создать HTML-страницу с форматированием текста</font></i></p></h3>
-<hr>
 
-<h3 align=center>Теги форматирования</h3>
-<ol> 
-<li> <p>Тег "big" <big>Увеличенный</big></p>
-<li> <p>Тег "small" <small>Уменьшенный</small></p>
-<li> <p>Тег "b" <b>Жирный</b></p>
-<li> <p>Тег "i" <i>Курсивный</i></p>
-<li> <p>Тег "u" <u>Подчеркнутый</u></p>
-<li> <p>Тег "s" <s>Перечеркнутый</s></p>
-<li> <p>Тег "pre" <pre>Моноширинный</pre></p>
-<li> <p>Тег "sup" y = x<sup>2</sup></p>
-<li> <p>Тег "sub" a<sub>n</sub></p>
-<hr>
+    <h1>Бросай кости!</h1>
+    
+    <div class="dice-container">
+        <div id="die1" class="die">?</div>
+        <div id="die2" class="die">?</div>
+    </div>
 
-<h3 align=center>Трехцветное изображение</h3>
-<div align=center>
-    <div style="background-color:red; width:250px; height:50px; float:top;"></div>
-    <div style="background-color:blue; width:250px; height:50px; float:top;"></div>
-    <div style="background-color:orange; width:250px; height:50px; float:top;"></div>
-</div>
+    <button onclick="rollDice()">Бросить кубики</button>
+    
+    <div id="result">Нажми кнопку, чтобы начать</div>
 
-<h3 align=center><font face="Comic Sans MS" color="Green">Картинка</font></h3> 
-<pre>
-	      ╭━╮	      ═════════╬═════════    
-	     ┣┫┊┣  ┏┓            ▄▄██████████▄▄▄▄▄█ 
-	  ╭━━━┛┊┗━━┛┃          ▄▒▄▒▒▄▒▒▄▒▒▒▀▀▀▀▀▀█  
-	  ╰━━━┓┊┏━━┓┃           ▀▀▀█▀▀▀█▀▀           
-	     ┣┫┊┣  ┗┛           ╚══╩═══╩══╝         
-	      ╰━╯               
-</pre>
+    <script>
+        function rollDice() {
+            const die1 = document.getElementById('die1');
+            const die2 = document.getElementById('die2');
+            const resultDisplay = document.getElementById('result');
+
+            // Анимация "тряски" (простая)
+            die1.innerText = '...';
+            die2.innerText = '...';
+
+            setTimeout(() => {
+                // Генерация случайных чисел от 1 до 6
+                const val1 = Math.floor(Math.random() * 6) + 1;
+                const val2 = Math.floor(Math.random() * 6) + 1;
+
+                // Вывод значений
+                die1.innerText = val1;
+                die2.innerText = val2;
+
+                // Сравнение результатов
+                if (val1 > val2) {
+                    resultDisplay.innerText = `Левый кубик победил! (${val1} vs ${val2})`;
+                } else if (val2 > val1) {
+                    resultDisplay.innerText = `Правый кубик победил! (${val2} vs ${val1})`;
+                } else {
+                    resultDisplay.innerText = `Ничья! (${val1}:${val2})`;
+                }
+            }, 300); // Небольшая задержка для эффекта ожидания
+        }
+    </script>
 </body>
 </html>
-
